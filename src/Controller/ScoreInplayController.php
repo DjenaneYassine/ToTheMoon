@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Services\CallApiService;
+use App\Services\StatsService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,12 +15,12 @@ use Symfony\Component\Dotenv\Dotenv;
 class ScoreInplayController extends AbstractController
 {
     private $apiService;
-    private $statsController;
+    private $statsService;
 
-    public function __construct(CallApiService $apiService, StatistiquesController $statsController)
+    public function __construct(CallApiService $apiService, StatsService $statsService)
     {
         $this->apiService = $apiService;
-        $this->statsController = $statsController;
+        $this->statsService = $statsService;
     }
 
 
@@ -34,7 +35,7 @@ class ScoreInplayController extends AbstractController
     public function data(): JsonResponse
     {
         $data = $this->apiService->getDataInplay();
-        /* $this->statsController->processMatchResults($data); */
+        $this->statsService->processMatchResults($this->apiService ,$data);
         return $this->json($data);
     }
 
