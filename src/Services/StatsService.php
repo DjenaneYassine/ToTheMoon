@@ -121,7 +121,7 @@ class StatsService
     private function conditionTestPassed($set, $ss, $setAdversaire, $ssAdversaire) : bool
     {
         $test = false;
-        if (($set === "2" && $setAdversaire === "0") && ($ss - $ssAdversaire >= "4")) {
+        if (($set === "2" && $setAdversaire === "0") && ($ss - $ssAdversaire = "4") && ($ss != "10" && $ss != "9")) {
             $test = true;
         }
         return $test;

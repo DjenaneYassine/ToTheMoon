@@ -31,6 +31,7 @@ class ScoreInplayController extends AbstractController
             'datas' => $this->apiService->getDataInplay()
         ]);
     }
+    
     #[Route('/api', name: 'api')]
     public function data(): JsonResponse
     {
