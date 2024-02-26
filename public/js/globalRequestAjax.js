@@ -12,13 +12,13 @@ function uptadeData(data){
             let newRowCLP =
                 "<div class='flex justify-between mb-4'>"+
                     "<div>"+
-                        "<span class='bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-600 dark:text-white'>En direct</span>"+
-                        "<div class='text-white font-semibold'>" + home + "<br>" + away + "</div>"+
+                        "<span class='bg-red-100 text-red-800 text-xs font-medium me-1 px-1 py-0 rounded dark:bg-red-600 dark:text-white'>En direct</span>"+
+                        "<div class='text-gray-300 text-sm font-semibold'>" + home + "<br>" + away + "</div>"+
                     "</div>"+
                     "<div class='text-white flex align-bottom items-end'>"+
-                        "<div class='font-semibold text-gray-300'>" + ss[0] + "<br>" + ss[1] + "</div>"+
+                        "<div class='font-semibold text-sm text-gray-300'>" + ss[0] + "<br>" + ss[1] + "</div>"+
                         "<div class='mx-2'></div>"+
-                        "<div class='font-semibold text-yellow-300'>" + set[0] + "<br>" + set[1] + "</div>"+
+                        "<div class='font-semibold text-sm text-yellow-300'>" + set[0] + "<br>" + set[1] + "</div>"+
                     "</div>"+
                 "</div>"
 
@@ -28,13 +28,13 @@ function uptadeData(data){
             let newRowTTES =
                 "<div class='flex justify-between mb-4'>"+
                     "<div>"+
-                        "<span class='bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-600 dark:text-white'>En direct</span>"+
-                        "<div class='text-white font-semibold'>" + home + "<br>" + away + "</div>"+
+                        "<span class='bg-red-100 mb-2 text-red-800 text-xs font-medium me-1 px-1 py-0 rounded dark:bg-red-600 dark:text-white'>En direct</span>"+
+                        "<div class='text-gray-300 text-sm font-semibold'>" + home + "<br>" + away + "</div>"+
                     "</div>"+
                     "<div class='text-white flex align-bottom items-end'>"+
-                        "<div class='font-semibold text-gray-300'>" + ss[0] + "<br>" + ss[1] + "</div>"+
+                        "<div class='font-semibold text-sm text-gray-300'>" + ss[0] + "<br>" + ss[1] + "</div>"+
                         "<div class='mx-2'></div>"+
-                        "<div class='font-semibold text-yellow-300'>" + set[0] + "<br>" + set[1] + "</div>"+
+                        "<div class='font-semibold text-sm text-yellow-300'>" + set[0] + "<br>" + set[1] + "</div>"+
                     "</div>"+
                 "</div>"
             TTES.append(newRowTTES);

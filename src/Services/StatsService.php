@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
+use App\Repository\MailHistoryRepository;
 use App\Repository\StatsRepository;
-use DateTime;
-use Doctrine\Persistence\ManagerRegistry;
-use PhpParser\Node\Expr\Cast\String_;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use App\Services\SendMailerService;
+
 
 class StatsService
 {
@@ -14,7 +14,12 @@ class StatsService
     private $statsrepository;
 
 
-    public function __construct(HttpClientInterface $client, StatsRepository $statsrepository)
+    public function __construct(
+        HttpClientInterface $client, 
+        StatsRepository $statsrepository, 
+        private readonly SendMailerService $sendMailerService,
+        private readonly MailHistoryRepository $mailHistoryRepository
+        )
     {
         $this->client = $client;
         $this->statsrepository = $statsrepository;
@@ -98,7 +103,7 @@ class StatsService
         return false;
     }
 
-    private function TwoSetAdvencedAndScore($match) : bool
+    private function TwoSetAdvencedAndScore($match, $scoreEcart) : bool
     {
         if(isset($match)){
             $set = explode("-", $match["set"]);
@@ -107,9 +112,9 @@ class StatsService
             $ssHome = $ss[0];
             $setAway = $set[1];
             $ssAway = $ss[1];
-            if($this->conditionTestPassed($setHome, $ssHome, $setAway, $ssAway)){
+            if($this->conditionTestPassed($setHome, $ssHome, $setAway, $ssAway, $scoreEcart)){
                 return true;
-            }elseif($this->conditionTestPassed($setAway, $ssAway, $setHome, $ssHome)){
+            }elseif($this->conditionTestPassed($setAway, $ssAway, $setHome, $ssHome, $scoreEcart)){
                 return true;
             }else{
                 return false;
@@ -118,24 +123,32 @@ class StatsService
         return false;
     }
 
-    private function conditionTestPassed($set, $ss, $setAdversaire, $ssAdversaire) : bool
+    private function conditionTestPassed($set, $ss, $setAdversaire, $ssAdversaire, $scoreEcart) : bool
     {
         $test = false;
-        if (($set === "2" && $setAdversaire === "0") && ($ss - $ssAdversaire = "4") && ($ss != "10" && $ss != "9")) {
+        if (($set === "2" && $setAdversaire === "0") && ($ss - $ssAdversaire == $scoreEcart) && ($ss != "11" && $ss != "10" && $ss != "9")) {
             $test = true;
         }
         return $test;
     }
-
+    
+    public function sendMail($match)
+    {
+        $this->sendMailerService->sendEmail($match["home"]["name"], $match["away"]["name"], $match["ss"], $match["league"]["name"]);
+    }
 
     public function processMatchResults(CallApiService $callApiService, $data) : void
     {
-        foreach ($data["results"] as $match){
-            if($this->TwoSetAdvencedAndScore($match) && $callApiService->goodLeague($match)) {
-                $this->statsrepository->newsStats($match);
-            }
 
-        }
+        foreach ($data["results"] as $match){
+            if($this->TwoSetAdvencedAndScore($match, "4") && $callApiService->goodLeague($match)) {
+                $this->statsrepository->newsStats($match);
+            }elseif($this->TwoSetAdvencedAndScore($match, "2") && $callApiService->goodLeague($match)) {
+                if($this->mailHistoryRepository->idUnique($match)){
+                    $this->sendMail($match);
+                    $this->mailHistoryRepository->newMail($match);
+                }
+        }}
     }
 
     

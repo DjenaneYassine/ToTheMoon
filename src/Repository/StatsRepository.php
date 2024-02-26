@@ -62,8 +62,7 @@ class StatsRepository extends ServiceEntityRepository
             ->setScore($match["ss"])
             ->setScoreSet($match["set"]);
 
-        $statsRepos = $entityManager->getRepository(Stats::class);
-        $existingStat = $statsRepos->findOneBy(['idMatch' => $newStat->getIdMatch()]);
+        $existingStat = $this->findOneBy(['idMatch' => $newStat->getIdMatch()]);
 
         if($existingStat === null){
             $entityManager->persist($newStat);
