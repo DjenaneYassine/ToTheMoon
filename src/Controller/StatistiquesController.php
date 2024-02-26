@@ -40,9 +40,9 @@ class StatistiquesController extends AbstractController
         $msgReloadData = "";
 
         if($this->statService->newSetAll()){
-            $msgReloadData = "Les données ont bien été actualisé";
+            $msgReloadData = true;
         }else{
-            $msgReloadData = "Toutes les données ont déja étais actualisé";
+            $msgReloadData = false;
         };
         return new JsonResponse(
             ['message' => $msgReloadData]

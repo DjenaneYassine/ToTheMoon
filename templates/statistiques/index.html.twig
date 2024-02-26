@@ -13,8 +13,36 @@
 					<div>
 						{% include 'partials/_breadcrump.html.twig' %}
 					</div>					
-					<div class="flex">
-						<button type="button" id="reloadBtn" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Actualiser</button>
+					<div id="modal" class="flex mb-2">
+						<button id="reloadBtn" data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Actualiser</button>
+						<div id='popup-modal' tabindex='-1' class='hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full'>
+						    <div class="relative p-4 w-full max-w-md max-h-full">
+								<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+									<button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+										<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+										</svg>
+									</button>
+										<div class="p-4 md:p-5 text-center">
+										<div id="loading" class="mx-auto mb-4 text-gray-400 w-32 h-20">
+											<div class="px-3 py-1 w-32 text-xs font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">Chargement...</div>
+										</div>
+										<svg class="hidden success mx-auto mb-4 text-gray-400 w-20 h-20 dark:text-green-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+											<path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm13.7-1.3a1 1 0 0 0-1.4-1.4L11 12.6l-1.8-1.8a1 1 0 0 0-1.4 1.4l2.5 2.5c.4.4 1 .4 1.4 0l4-4Z" clip-rule="evenodd"/>
+										</svg>
+										<h3 class="hidden success mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Les matchs ont été mis à jour avec succès. Merci de rafraîchir la page.</h3>
+										<svg class="hidden error mx-auto mb-4 text-gray-400 w-20 h-20 dark:text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+											<path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm11-4a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0V8Zm-1 7a1 1 0 1 0 0 2 1 1 0 1 0 0-2Z" clip-rule="evenodd"/>
+										</svg>
+										<h3 class="hidden error mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Les matchs ont déjà été actualisés.</h3>
+										<svg class="hidden error-in-play mx-auto mb-4 text-gray-400 w-20 h-20 dark:text-red-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+											<path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z" clip-rule="evenodd"/>
+										</svg>
+										<h3 class="hidden error-in-play mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Un ou plusieurs matchs sont actuellement en cours. Merci de réessayer ultérieurement pour actualiser les informations.</h3>
+									</div>
+								</div>
+							</div>
+						</div>
 						<div class="relative ml-2">
 							<div class="absolute inset-y-0 bottom-1 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
 								<svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -221,7 +249,12 @@
 
 		const btnReload = $("#reloadBtn");
 		const btnChartDonnut = $("#dropdownDefaultButton");
-		const btnChartLine = $("#dropdownHoverButton")
+		const btnChartLine = $("#dropdownHoverButton");
+		const modalSuccess = $(".success");
+		const modalError = $(".error");
+		const errorInplay = $(".error-in-play");
+		const load = $("#loading");
+		
 
 		const chartDonnut30 = $("#donnut30");
 		const chartDonnut14 = $("#donnut14");
@@ -239,14 +272,27 @@
 			
 			//Relaod table
 			btnReload.on('click', function (){
+					load.removeClass("hidden");
+					modalSuccess.addClass("hidden");
+					modalError.addClass("hidden");
+					errorInplay.addClass("hidden");
 					$.ajax({
 						url:"/reloadData",
 						method: 'GET',
 						success: function (response){
-							console.log(response);
+							if(response.message){
+								modalSuccess.removeClass("hidden");
+								load.addClass("hidden");
+
+							}else{
+								modalError.removeClass("hidden");
+								load.addClass("hidden")
+							}
 						},
 						error: function (error){
 							console.error(error)
+							errorInplay.removeClass("hidden")
+							load.addClass("hidden")
 						}
 					})
 			})
