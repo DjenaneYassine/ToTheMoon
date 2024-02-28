@@ -1,252 +1,264 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello StatistiquesController!
+{% block title %}Statistiques
 {% endblock %}
 
 {% block body %}
-	{% include 'partials/_header-home.html.twig' %}
-	<div class="h-max w-screen bg-gray-900 p-8 flex flex-col">
-		<div class="grid grid-cols-4 gap-4">
-
-			<div class="row-span-3 row col-span-3">
-				<div class="flex justify-between items-center">
-					<div>
-						{% include 'partials/_breadcrump.html.twig' %}
-					</div>					
-					<div id="modal" class="flex mb-2">
-						<button id="reloadBtn" data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Actualiser</button>
-						<div id='popup-modal' tabindex='-1' class='hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full'>
-						    <div class="relative p-4 w-full max-w-md max-h-full">
-								<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-									<button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
-										<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-										</svg>
-									</button>
-										<div class="p-4 md:p-5 text-center">
-										<div id="loading" class="mx-auto mb-4 text-gray-400 w-32 h-20">
-											<div class="px-3 py-1 w-32 text-xs font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">Chargement...</div>
-										</div>
-										<svg class="hidden success mx-auto mb-4 text-gray-400 w-20 h-20 dark:text-green-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-											<path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm13.7-1.3a1 1 0 0 0-1.4-1.4L11 12.6l-1.8-1.8a1 1 0 0 0-1.4 1.4l2.5 2.5c.4.4 1 .4 1.4 0l4-4Z" clip-rule="evenodd"/>
-										</svg>
-										<h3 class="hidden success mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Les matchs ont été mis à jour avec succès. Merci de rafraîchir la page.</h3>
-										<svg class="hidden error mx-auto mb-4 text-gray-400 w-20 h-20 dark:text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-											<path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm11-4a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0V8Zm-1 7a1 1 0 1 0 0 2 1 1 0 1 0 0-2Z" clip-rule="evenodd"/>
-										</svg>
-										<h3 class="hidden error mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Les matchs ont déjà été actualisés.</h3>
-										<svg class="hidden error-in-play mx-auto mb-4 text-gray-400 w-20 h-20 dark:text-red-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-											<path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z" clip-rule="evenodd"/>
-										</svg>
-										<h3 class="hidden error-in-play mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Un ou plusieurs matchs sont actuellement en cours. Merci de réessayer ultérieurement pour actualiser les informations.</h3>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="relative ml-2">
-							<div class="absolute inset-y-0 bottom-1 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-								<svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-									<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-								</svg>
-							</div>
-							<input type="text" id="table-search" class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for items">
-						</div>
-					</div>
-				</div>
-				<div style="height: 95.3%; max-height: 92.3% " class="relative overflow-x-auto shadow-md sm:rounded-lg dark:bg-gray-800 pb-4">
-					<div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+	<body class="bg-gray-900 overflow-x-hidden">
+		{% include 'partials/_header-home.html.twig' %}
+		<div class="h-full homescreen m-0 flex flex-col w-screen bg-gray-900 text-gray-100 p-8">
+			<div class="grid grid-cols-4 gap-4">
+				<div class="row-span-3 row col-span-3">
+					<div class="flex justify-between items-center">
 						<div>
-							<!-- Dropdown menu -->
-							<div id="dropdownRadio" class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="top" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(522.5px, 3847.5px, 0px);">
-								<ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRadioButton">
-									<li>
-										<div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-											<input id="filter-radio-example-1" type="radio" value="" name="filter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-											<label for="filter-radio-example-1" class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Hier</label>
-										</div>
+							<nav class="flex mb-2" aria-label="Breadcrumb">
+								<ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+									<li class="inline-flex items-center">
+									<a href="#" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+										<svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+										<path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+										</svg>
+										Accueil
+									</a>
 									</li>
-									<li>
-										<div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-											<input checked="" id="filter-radio-example-2" type="radio" value="" name="filter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-											<label for="filter-radio-example-2" class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Aujourd'hui</label>
-										</div>
-									</li>
-									<li>
-										<div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-											<input id="filter-radio-example-3" type="radio" value="" name="filter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-											<label for="filter-radio-example-3" class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">7 derniers jours</label>
-										</div>
-									</li>
-									<li>
-										<div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-											<input id="filter-radio-example-4" type="radio" value="" name="filter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-											<label for="filter-radio-example-4" class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">30 derniers jours</label>
-										</div>
-									</li>
-									{# <li>
-											<div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-												<input id="filter-radio-example-5" type="radio" value="" name="filter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-												<label for="filter-radio-example-5" class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">L'année dernière</label>
-											</div>
-										</li> #}
-								</ul>
-							</div>
-						</div>
-					</div>
-					<table class="w-full text-sm text-left rtl:text-right text-gray-200 dark:text-gray-400">
-						<thead class="text-xs text-gray-200 uppercase bg-gray-50 dark:bg-gray-800 dark:text-gray-200">
-							<tr>
-								<th scope="col" class="px-6 py-3 text-center">
-									League
-								</th>
-								<th scope="col" class="px-6 py-3 text-center">
-									Date
-								</th>
-								<th scope="col" class="px-6 py-3 text-center">
-									Domicile
-								</th>
-								<th scope="col" class="px-6 py-3 text-center">
-									Extérieur
-								</th>
-								<th scope="col" class="px-6 py-3 text-center">
-									Score
-								</th>
-								<th scope="col" class="px-6 py-3 text-center">
-									Set
-								</th>
-								<th scope="col" class="px-6 py-3 text-center">
-									Status
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for stat in all_match %}
-								<tr class="h-8">
-									<td class="text-center">{{ stat.date|date('d/m/Y') }}</td>
-									<td class="text-center">{{ stat.league }}</td>
-									<td class="text-center">{{ stat.nameHome }}</td>
-									<td class="text-center">{{ stat.nameAway }}</td>
-									<td class="text-center">{{ stat.score }}</td>
-									{% if stat.winner == null %}
-										<td class="text-center text-gray-200">En cours...</td>
-									{% else %}
-										<td class="text-center">{{ stat.winner }}</td>
-									{% endif %}
-									{% if stat.win == true %}
-										<td class="text-center text-green-600 font-bold tracking-wide">Victoire</td>
-									{% elseif stat.winner is null %}
-											<td class="text-center text-gray-200">En cours...</td>
-									{% elseif stat.win == false %}
-										<td class="text-center text-red-600 font-bold tracking-wide">Défaite</td>
-									{% endif %}
-									
-								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<div class="grid grid-cols-subgrid gap-4 col-row-2">
-				<div class="">
-					<div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800">
-					<div class="flex justify-between p-4 md:p-6 pb-0 md:pb-0">
-					    <div>
-							<h5 class="leading-none text-lg font-bold text-gray-900 dark:text-white pb-2">Analyse du nombre de matchs et de victoires</h5>
-						</div>
-						<div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
-							23%
-							<svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
-							</svg>
-						</div>
-					</div>
-					<div id="labels-chart" class="px-2.5"></div>
-					<div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between mt-5 p-4 md:p-6 pt-0 md:pt-0">
-						<div class="flex justify-between items-center pt-5">
-						<!-- Button -->
-						<button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white" type="button">7 derniers jours<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-						</svg>
-						</button>
-						<!-- Dropdown menu -->
-						<div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-							<ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
-								<li>
-									<a id="line7" href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">7 derniers jours</a>
-								</li>
-								<li>
-									<a id="line14" href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">14 derniers jours</a>
-								</li>
-							</ul>
-						</div>
-						</div>
-					</div>
-					</div>
-				</div>
-				<div class="">
-					<div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
-						<div class="flex justify-between mb-3">
-							<div class="flex justify-center items-center">
-								<h5 class="text-lg font-bold leading-none text-gray-900 dark:text-white pe-1">Victoires et des Défaites</h5>
-								<svg data-popover-target="chart-info" data-popover-placement="bottom" class="w-3.5 h-3.5 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white cursor-pointer ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewbox="0 0 20 20">
-									<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm0 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm1-5.034V12a1 1 0 0 1-2 0v-1.418a1 1 0 0 1 1.038-.999 1.436 1.436 0 0 0 1.488-1.441 1.501 1.501 0 1 0-3-.116.986.986 0 0 1-1.037.961 1 1 0 0 1-.96-1.037A3.5 3.5 0 1 1 11 11.466Z"/>
-								</svg>
-								<div data-popover id="chart-info" role="tooltip" class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
-									<div class="p-3 space-y-2">
-										<h3 class="font-semibold text-gray-900 dark:text-white">Activity growth - Incremental</h3>
-										<p>Report helps navigate cumulative growth of community activities. Ideally, the chart should have a growing trend, as stagnating chart signifies a significant decrease of community activity.</p>
-										<h3 class="font-semibold text-gray-900 dark:text-white">Calculation</h3>
-										<p>For each date bucket, the all-time volume of activities is calculated. This means that activities in period n contain all activities up to period n, plus the activities generated by your community in period.</p>
-										<a href="#" class="flex items-center font-medium text-blue-600 dark:text-blue-500 dark:hover:text-blue-600 hover:text-blue-700 hover:underline">Read more
-											<svg class="w-2 h-2 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 6 10">
-												<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-											</svg>
-										</a>
+									<li aria-current="page">
+									<div class="flex items-center">
+										<svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+										<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+										</svg>
+										<span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">Statistiques</span>
 									</div>
-									<div data-popper-arrow></div>
+									</li>
+								</ol>
+							</nav>
+						</div>					
+						<div id="modal" class="flex mb-2">
+							<button id="reloadBtn" data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="text-white bg-orange-500 font-medium rounded-lg text-sm px-6 py-2 text-center" type="button">Actualiser</button>
+							<div id='popup-modal' tabindex='-1' class='hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full'>
+								<div class="relative p-4 w-full max-w-md max-h-full">
+									<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+										<button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+											<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+												<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+											</svg>
+										</button>
+											<div class="p-4 md:p-5 text-center">
+											<div id="loading" class="mx-auto mb-4 text-gray-400 w-32 h-20">
+												<div class="px-3 py-1 w-32 text-xs font-medium leading-none text-center text-white animate-pulse">Chargement...</div>
+											</div>
+											<svg class="hidden success mx-auto mb-4 text-gray-400 w-20 h-20 dark:text-green-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+												<path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm13.7-1.3a1 1 0 0 0-1.4-1.4L11 12.6l-1.8-1.8a1 1 0 0 0-1.4 1.4l2.5 2.5c.4.4 1 .4 1.4 0l4-4Z" clip-rule="evenodd"/>
+											</svg>
+											<h3 class="hidden success mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Les matchs ont été mis à jour avec succès. Merci de rafraîchir la page.</h3>
+											<svg class="hidden error mx-auto mb-4 text-gray-400 w-20 h-20 dark:text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+												<path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm11-4a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0V8Zm-1 7a1 1 0 1 0 0 2 1 1 0 1 0 0-2Z" clip-rule="evenodd"/>
+											</svg>
+											<h3 class="hidden error mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Les matchs ont déjà été actualisés.</h3>
+											<svg class="hidden error-in-play mx-auto mb-4 text-gray-400 w-20 h-20 dark:text-red-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+												<path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z" clip-rule="evenodd"/>
+											</svg>
+											<h3 class="hidden error-in-play mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Un ou plusieurs matchs sont actuellement en cours. Merci de réessayer ultérieurement pour actualiser les informations.</h3>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
-
-						<!-- Donut Chart -->
-						<div class="py-6" id="donut-chart"></div>
-						<div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
-							<div class="flex justify-between items-center pt-5">
-								<!-- Button -->
-								<button id="dropdownDefaultButton" data-dropdown-toggle="lastDaysdropdown" data-dropdown-placement="bottom" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white" type="button">
-									Hier
-									<svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 10 6">
-										<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-									</svg>
-								</button>
-								<div id="lastDaysdropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-									<ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+					</div>
+					<div style="height: 95.3%;" class="relative overflow-x-auto shadow-md sm:rounded-lg dark:bg-gray-800 pb-4">
+						<div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+							<div>
+								<!-- Dropdown menu -->
+								<div id="dropdownRadio" class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="top" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(522.5px, 3847.5px, 0px);">
+									<ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRadioButton">
 										<li>
-											<a id="donnutYesterday" href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Hier</a>
+											<div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+												<input id="filter-radio-example-1" type="radio" value="" name="filter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+												<label for="filter-radio-example-1" class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Hier</label>
+											</div>
 										</li>
 										<li>
-											<a id="donnutCurrent" href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Aujourd'hui</a>
+											<div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+												<input checked="" id="filter-radio-example-2" type="radio" value="" name="filter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+												<label for="filter-radio-example-2" class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Aujourd'hui</label>
+											</div>
 										</li>
 										<li>
-											<a id="donnut7" href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">7 derniers jours</a>
+											<div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+												<input id="filter-radio-example-3" type="radio" value="" name="filter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+												<label for="filter-radio-example-3" class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">7 derniers jours</label>
+											</div>
 										</li>
 										<li>
-											<a id="donnut14" href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">14 derniers jours</a>
+											<div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+												<input id="filter-radio-example-4" type="radio" value="" name="filter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+												<label for="filter-radio-example-4" class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">30 derniers jours</label>
+											</div>
 										</li>
-										<li>
-											<a id="donnut30" href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">30 derniers jours</a>
-										</li>
+										{# <li>
+												<div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+													<input id="filter-radio-example-5" type="radio" value="" name="filter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+													<label for="filter-radio-example-5" class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">L'année dernière</label>
+												</div>
+											</li> #}
 									</ul>
 								</div>
 							</div>
 						</div>
+						<table class="w-full text-sm text-left rtl:text-right text-gray-200 dark:text-gray-400">
+							<thead class="text-xs text-gray-200 uppercase bg-gray-50 dark:bg-gray-800 dark:text-gray-200">
+								<tr>
+									<th scope="col" class="px-6 py-3 text-center">
+										League
+									</th>
+									<th scope="col" class="px-6 py-3 text-center">
+										Date
+									</th>
+									<th scope="col" class="px-6 py-3 text-center">
+										Domicile
+									</th>
+									<th scope="col" class="px-6 py-3 text-center">
+										Extérieur
+									</th>
+									<th scope="col" class="px-6 py-3 text-center">
+										Score
+									</th>
+									<th scope="col" class="px-6 py-3 text-center">
+										Set
+									</th>
+									<th scope="col" class="px-6 py-3 text-center">
+										Status
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for stat in all_match %}
+									<tr class="h-8">
+										<td class="text-center">{{ stat.date|date('d/m/Y') }}</td>
+										<td class="text-center">{{ stat.league }}</td>
+										<td class="text-center">{{ stat.nameHome }}</td>
+										<td class="text-center">{{ stat.nameAway }}</td>
+										<td class="text-center">{{ stat.score }}</td>
+										{% if stat.winner == null %}
+											<td class="text-center text-gray-200">En cours...</td>
+										{% else %}
+											<td class="text-center">{{ stat.winner }}</td>
+										{% endif %}
+										{% if stat.win == true %}
+											<td class="text-center text-green-600 font-bold tracking-wide">Victoire</td>
+										{% elseif stat.winner is null %}
+												<td class="text-center text-gray-200">En cours...</td>
+										{% elseif stat.win == false %}
+											<td class="text-center text-red-600 font-bold tracking-wide">Défaite</td>
+										{% endif %}
+										
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="grid grid-cols-subgrid gap-4 col-row-2">
+					<div class="">
+						<div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800">
+						<div class="flex justify-between p-4 md:p-6 pb-0 md:pb-0">
+							<div>
+								<h5 class="leading-none text-lg font-bold text-gray-900 dark:text-white pb-2">Analyse du nombre de matchs et de victoires</h5>
+							</div>
+							<div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
+								23%
+								<svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
+									<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
+								</svg>
+							</div>
+						</div>
+						<div id="labels-chart" class="px-2.5"></div>
+						<div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between mt-5 p-4 md:p-6 pt-0 md:pt-0">
+							<div class="flex justify-between items-center pt-5">
+							<!-- Button -->
+							<button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white" type="button">7 derniers jours<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+							</svg>
+							</button>
+							<!-- Dropdown menu -->
+							<div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+								<ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
+									<li>
+										<a id="line7" href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">7 derniers jours</a>
+									</li>
+									<li>
+										<a id="line14" href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">14 derniers jours</a>
+									</li>
+								</ul>
+							</div>
+							</div>
+						</div>
+						</div>
+					</div>
+					<div class="">
+						<div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+							<div class="flex justify-between mb-3">
+								<div class="flex justify-center items-center">
+									<h5 class="text-lg font-bold leading-none text-gray-900 dark:text-white pe-1">Victoires et des Défaites</h5>
+									<svg data-popover-target="chart-info" data-popover-placement="bottom" class="w-3.5 h-3.5 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white cursor-pointer ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewbox="0 0 20 20">
+										<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm0 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm1-5.034V12a1 1 0 0 1-2 0v-1.418a1 1 0 0 1 1.038-.999 1.436 1.436 0 0 0 1.488-1.441 1.501 1.501 0 1 0-3-.116.986.986 0 0 1-1.037.961 1 1 0 0 1-.96-1.037A3.5 3.5 0 1 1 11 11.466Z"/>
+									</svg>
+									<div data-popover id="chart-info" role="tooltip" class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
+										<div class="p-3 space-y-2">
+											<h3 class="font-semibold text-gray-900 dark:text-white">Activity growth - Incremental</h3>
+											<p>Report helps navigate cumulative growth of community activities. Ideally, the chart should have a growing trend, as stagnating chart signifies a significant decrease of community activity.</p>
+											<h3 class="font-semibold text-gray-900 dark:text-white">Calculation</h3>
+											<p>For each date bucket, the all-time volume of activities is calculated. This means that activities in period n contain all activities up to period n, plus the activities generated by your community in period.</p>
+											<a href="#" class="flex items-center font-medium text-blue-600 dark:text-blue-500 dark:hover:text-blue-600 hover:text-blue-700 hover:underline">Read more
+												<svg class="w-2 h-2 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 6 10">
+													<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+												</svg>
+											</a>
+										</div>
+										<div data-popper-arrow></div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Donut Chart -->
+							<div class="py-6" id="donut-chart"></div>
+							<div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
+								<div class="flex justify-between items-center pt-5">
+									<!-- Button -->
+									<button id="dropdownDefaultButton" data-dropdown-toggle="lastDaysdropdown" data-dropdown-placement="bottom" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white" type="button">
+										Aujourd'hui
+										<svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 10 6">
+											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+										</svg>
+									</button>
+									<div id="lastDaysdropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+										<ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+											<li>
+												<a id="donnutYesterday" href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Hier</a>
+											</li>
+											<li>
+												<a id="donnutCurrent" href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Aujourd'hui</a>
+											</li>
+											<li>
+												<a id="donnut7" href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">7 derniers jours</a>
+											</li>
+											<li>
+												<a id="donnut14" href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">14 derniers jours</a>
+											</li>
+											<li>
+												<a id="donnut30" href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">30 derniers jours</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
+				{% include 'partials/_footer.html.twig' %}
 		</div>
-	</div>
+	</body>
 	<script>
-
 		const btnReload = $("#reloadBtn");
 		const btnChartDonnut = $("#dropdownDefaultButton");
 		const btnChartLine = $("#dropdownHoverButton");
@@ -341,8 +353,6 @@
 				}
 			})
 
-			fetchDataAndUptade();
-        	setInterval(fetchDataAndUptade, 2500)
 		});
 
         

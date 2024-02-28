@@ -1,12 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!
+{% block title %}Bienvenue sur ToTheMoon!
 {% endblock %}
 
 {% block body %}
-	<div class="bg-white">
-		{% include 'partials/_header-home.html.twig' %}
-        {% include 'partials/_contain-home.html.twig' %}
-	</div>
+<!-- component -->
+	<body style="overflow-y: hidden; overflow-x: hidden;">
+		<section class="homescreen m-0 flex flex-col w-screen bg-gray-800 h-screen text-gray-100 ">
+			{% include 'partials/_header-home.html.twig' %}
+			{% include 'partials/_contain-home.html.twig' %}
+		</section>
+	</body>
 {% endblock %}
+
 

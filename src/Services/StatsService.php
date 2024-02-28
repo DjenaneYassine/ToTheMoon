@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Services;
-
 use App\Repository\MailHistoryRepository;
 use App\Repository\StatsRepository;
 use Symfony\Contracts\HttpClient\HttpClientInterface;

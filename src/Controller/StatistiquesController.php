@@ -37,8 +37,6 @@ class StatistiquesController extends AbstractController
     #[Route('/reloadData', name:'reload')]
     public function reloadData(): JsonResponse
     {
-        $msgReloadData = "";
-
         if($this->statService->newSetAll()){
             $msgReloadData = true;
         }else{
@@ -59,8 +57,8 @@ class StatistiquesController extends AbstractController
         // --- Chart Line --- //
         
         // --- Chart Donut --- //
-        $win = $this->statService->getNbWinForDate($this->statService->getDateYesterday());
-        $loose = $this->statService->getNbLooseForDate($this->statService->getDateYesterday());
+        $win = $this->statService->getNbWinForDate($this->statService->getDateCurrent());
+        $loose = $this->statService->getNbLooseForDate($this->statService->getDateCurrent());
         // --- Chart Donut --- //
 
         return new JsonResponse(
