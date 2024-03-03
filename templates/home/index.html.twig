@@ -4,13 +4,10 @@
 {% endblock %}
 
 {% block body %}
-<!-- component -->
-	<body style="overflow-y: hidden; overflow-x: hidden;">
-		<section class="homescreen m-0 flex flex-col w-screen bg-gray-800 h-screen text-gray-100 ">
-			{% include 'partials/_header-home.html.twig' %}
-			{% include 'partials/_contain-home.html.twig' %}
-		</section>
+	<body class="dark:bg-gray-900 homescreen" style="overflow-y: hidden; overflow-x: hidden">
+		{% include "partials/_header-home.html.twig" %} 
+		{% include "partials/_contain-home.html.twig" %} 
 	</body>
+	<script>
+	</script>
 {% endblock %}
-
-

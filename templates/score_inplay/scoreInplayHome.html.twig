@@ -4,15 +4,21 @@
 {% endblock %}
 
 {% block body %}
-	<body class="bg-gray-900 overflow-x-hidden overflow-y-hidden">
+	<style>
+		@media(min-width: 1800px){
+			.r{
+				width: 36.666667%;
+			}
+		}
+	</style>
+	<body class="bg-gray-900 overflow-x-hidden">
 		{% include 'partials/_header-home.html.twig' %}
-
-		<div class="h-full p-8 homescreen flex flex-col justify-between bg-gray-900 ">
+		<div class="h-screen p-4 md:p-8 homescreen flex flex-col justify-between bg-gray-900 mt-20">
 			<div>
-				<nav class="flex mb-2" aria-label="Breadcrumb">
+				<nav class="flex mb-6 md:mb-2" aria-label="Breadcrumb">
 					<ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
 						<li class="inline-flex items-center">
-							<a href="#" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+							<a href="{{path('app_home')}}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
 								<svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
 									<path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
 								</svg>
@@ -30,7 +36,7 @@
 					</ol>
 				</nav>
 				<div class="flex flex-col items-center">
-						<div class="w-1/2 shadow-xl">
+						<div class="w-full md:w-1/2 r shadow-xl">
 							<div href="#" class="block p-6 max-w-full rounded-lg dark:bg-gray-800">
 								<h5 class="mb-2 text-lg tracking-tight text-gray-900 dark:text-gray-100 mb-4">République Tchèque / <span class="underline underline-offset-10">Czech Liga Pro</span></h5>
 								<div class="CLP">
@@ -38,7 +44,7 @@
 							</div>
 						</div>
 						<div class="my-4"></div>
-						<div class="w-1/2 shadow-xl	">
+						<div class="w-full md:w-1/2 r shadow-xl	">
 							<div href="#" class="block p-6 max-w-full rounded-lg dark:bg-gray-800">
 								<h5 class="mb-2 text-lg tracking-tight text-gray-900 dark:text-gray-100">International / <span class="underline underline-offset-8">TT Elite série</span></h5>
 								<div class="TTES">
