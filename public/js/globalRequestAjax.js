@@ -14,8 +14,6 @@ function star(){
     }
 }
 
-
-
 function uptadeData(data){
     let TTES = $(".TTES");
     let CLP = $(".CLP");
@@ -34,9 +32,9 @@ function uptadeData(data){
                         "<div class='text-gray-300 text-sm font-semibold'>" + home + "<br>" + away + "</div>"+
                     "</div>"+
                     "<div class='text-white flex align-bottom items-end'>"+
-                        "<div class='font-semibold text-sm text-gray-300'>" + ss[0] + "<br>" + ss[1] + "</div>"+
+                        "<div class='font-semibold text-sm text-gray-100'>" + ss[0] + "<br>" + ss[1] + "</div>"+
                         "<div class='mx-2'></div>"+
-                        "<div class='font-semibold text-sm text-yellow-300'>" + set[0] + "<br>" + set[1] + "</div>"+
+                        "<div class='font-semibold text-sm text-orange-500'>" + set[0] + "<br>" + set[1] + "</div>"+
                     "</div>"+
                 "</div>"
 
@@ -50,9 +48,9 @@ function uptadeData(data){
                         "<div class='text-gray-300 text-sm font-semibold'>" + home + "<br>" + away + "</div>"+
                     "</div>"+
                     "<div class='text-white flex align-bottom items-end'>"+
-                        "<div class='font-semibold text-sm text-gray-300'>" + ss[0] + "<br>" + ss[1] + "</div>"+
+                        "<div class='font-semibold text-sm text-gray-100'>" + ss[0] + "<br>" + ss[1] + "</div>"+
                         "<div class='mx-2'></div>"+
-                        "<div class='font-semibold text-sm text-yellow-300'>" + set[0] + "<br>" + set[1] + "</div>"+
+                        "<div class='font-semibold text-sm text-orange-500'>" + set[0] + "<br>" + set[1] + "</div>"+
                     "</div>"+
                 "</div>"
             TTES.append(newRowTTES);
@@ -72,7 +70,8 @@ function fetchDataAndUptade(){
                 console.error(error);
             }
         })
-
 }
+
+
 
 

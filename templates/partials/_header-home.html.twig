@@ -1,31 +1,45 @@
-<nav class=" w-full z-20 top-0 start-0">
-	<div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-		<a href="{{path('app_home')}}" class="flex items-center space-x-3 rtl:space-x-reverse">
-			<img src="{{ asset('images/logo.png') }}" style="height: 40px" alt="Logo">
-			<span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">ToTheMoon
-			</span>
-			<svg class="w-6 m-0 h-6 text-gray-800 dark:text-white" style="margin-bottom: 10px; margin-left: 0px;" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewbox="0 0 24 24">
-				<path fill-rule="evenodd" d="M11.7 2a10 10 0 1 0 9.8 13.3 1 1 0 0 0-1-1.3H20a8 8 0 0 1-7.6-10.6l.1-.4a1 1 0 0 0-.8-1Z" clip-rule="evenodd"/>
-			</svg>
-		</a>
-		<div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-			<button type="button" class="text-white bg-orange-500 font-medium rounded-lg text-sm px-4 py-2 text-center ">Se connecter</button>
-		</div>
-		<div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-			<ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0   dark:border-gray-700">
-				<li>
-					<a href="{{path('app_home')}}" class="block py-2 px-3 text-white bg-orange-500 rounded md:bg-transparent md:text-orange-500 md:p-0 md:dark:text-orange-500" aria-current="page">Accueil</a>
-				</li>
-				<li>
-					<a href="{{path('app_score_inplay')}}" class="block dark:text-white rounded">Direct</a>
-				</li>
-				<li>
-					<a href="{{path('app_statistiques')}}" class="block dark:text-white rounded">Statistiques</a>
-				</li>
-				<li>
-					<a href="#" class="block dark:text-white rounded">Contact</a>
-				</li>
-			</ul>
-		</div>
-	</div>
-</nav>
+<section id="header" class="fixed top-0 w-full z-50">
+			<nav class=" border-gray-200 bg-transparent z-20">
+				<div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+					<a href="{{path('app_home')}}" class="flex items-center space-x-3 rtl:space-x-reverse">
+						<img src="./images/logo.png" class="h-8" alt="Flowbite Logo"/>
+						<span class="self-center text-xl md:text-2xl font-semibold whitespace-nowrap dark:text-white">ToTheMoon</span>
+						<svg class="w-6 mb-2 ml-0 h-4 md:h-12 text-gray-800 dark:text-white" style="margin-left: 0px;" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewbox="0 0 24 24">
+							<path fill-rule="evenodd" d="M11.7 2a10 10 0 1 0 9.8 13.3 1 1 0 0 0-1-1.3H20a8 8 0 0 1-7.6-10.6l.1-.4a1 1 0 0 0-.8-1Z" clip-rule="evenodd"/>
+						</svg>
+					</a>
+					<button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden  focus:outline-none focus:ring-2  dark:text-gray-400 " aria-controls="navbar-default" aria-expanded="false">
+						<span class="sr-only">Open main menu</span>
+						<svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 17 14">
+							<path stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+						</svg>
+					</button>
+					<div class="hidden w-full rounded-md bg-gray-800 md:bg-transparent md:block md:w-auto" id="navbar-default">
+						<ul class="font-medium flex flex-col p-4 md:p-0 mt-4 md:bg-transparent md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 ">
+							<li>
+								<a href="{{path('app_home')}}" class="block py-2 px-3 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:border-0 md:p-0 md:dark:text-white">Accueil</a>
+							</li>
+							<li>
+								<a href="{{path('app_score_inplay')}}" class="block py-2 px-3 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:border-0 md:p-0 md:dark:text-white">Direct</a>
+							</li>
+							<li>
+								<a href="{{path('app_statistiques')}}" class="block py-2 px-3 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:border-0 md:p-0 md:dark:text-white">Statistiques</a>
+							</li>
+							<li>
+								<a href="#" class="block py-2 px-3 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:border-0 md:p-0 md:dark:text-white">Prix</a>
+							</li>
+							<li class="flex mt-1">
+								<a href="#" class="md:hidden block py-2 px-3 text-white rounded hover:bg-gray-900 md:hover:bg-transparent md:border-0 md:p-0 md:dark:text-white border flex">
+									<svg class="md:hidden w-6 h-6 text-gray-800 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+										<path fill-rule="evenodd" d="M12 20a8 8 0 0 1-5-1.8v-.6c0-1.8 1.5-3.3 3.3-3.3h3.4c1.8 0 3.3 1.5 3.3 3.3v.6a8 8 0 0 1-5 1.8ZM2 12a10 10 0 1 1 10 10A10 10 0 0 1 2 12Zm10-5a3.3 3.3 0 0 0-3.3 3.3c0 1.7 1.5 3.2 3.3 3.2 1.8 0 3.3-1.5 3.3-3.3C15.3 8.6 13.8 7 12 7Z" clip-rule="evenodd"/>
+									</svg>
+  								Se connecter</a>
+							</li>
+						</ul>
+					</div>
+					<div class="hidden w-full md:block md:w-auto">
+						<button type="button" class="text-white font-medium rounded-lg text-sm px-5 py-2 mb-2 bg-orange-500">Se connecter</button>
+					</div>
+				</div>
+			</nav>
+		</section>
