@@ -1,0 +1,33 @@
+# The name of the app. Must be unique within a project.
+name: app
+
+# The type of the application to build
+type: 'php:8.0'
+
+# Indicate to use Composer 2 (leave out if you want Composer 1)
+# See how without Composer: https://docs.platform.sh/guides/wordpress/vanilla.html
+dependencies:
+    php:
+        composer/composer: '^2'
+
+# The size of the persistent disk of the application (in MB)
+disk: 2048
+
+# Your app's configuration when it's exposed to the web.
+web:
+    # Set the upstream property to create a socket to listen to
+    upstream:
+        socket_family: tcp
+        protocol: http
+
+    # Set the specific command to start your app
+    # using the provided port
+    commands:
+        start: php path/to/start/command --port=$PORT
+
+    locations:
+        "/":
+            # Send all requests through to the app
+            allow: false
+            passthru: true
+            scripts: false
