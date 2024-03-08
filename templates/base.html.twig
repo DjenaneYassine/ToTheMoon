@@ -9,10 +9,12 @@
         {% block stylesheets %}
             <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
             <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+            {#FOR PRODUCTIOON --> <link href="./public/styles/bg.css'" rel="stylesheet" />#}
             <link href="{{asset('styles/bg.css')}}" rel="stylesheet" />
         {% endblock %}
 
         {% block javascripts %}
+            {#FOR PRODUCTIOON --> <script src="./public/js/globalRequestAJAX.js'"></script>#}
             <script src="{{asset('js/globalRequestAJAX.js')}}"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
