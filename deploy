@@ -1,0 +1,2 @@
+#!/bin/sh
+rsync -av ./ tothemf@ssh.cluster030.hosting.ovh.net:~/www --include=public/build --include=public/.htaccess --include=vendor  --exclude-from=.gitignore --exclude=".*" --exclude=deploy
