@@ -71,11 +71,14 @@ class StatsService
         $data = $this->getAllsets();
         if(!empty($data)){
             foreach($data as $id =>$match){
-                $this->statsrepository->newSet($match["set"], $id);
-                if($this->conditionTestPassedFinal($match)){
-                    $this->statsrepository->valueWin($id, true);
-                }else{
-                    $this->statsrepository->valueWin($id, false);
+                if(!empty($this->statsrepository->newSet($match["set"], $id)))
+                {
+                    $this->statsrepository->newSet($match["set"], $id);
+                    if($this->conditionTestPassedFinal($match)){
+                        $this->statsrepository->valueWin($id, true);
+                    }else{
+                        $this->statsrepository->valueWin($id, false);
+                    }
                 }
             }
         }else{
