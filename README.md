@@ -3,7 +3,7 @@
 ## Captures d'écran
 
 ![Scores en direct](public/images/direct.png)
-![Statistiques](public/images/stats.png)
+![Statistiques](public/images/stat.png)
 
 ## Description
 
